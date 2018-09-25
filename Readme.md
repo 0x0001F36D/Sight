@@ -6,11 +6,11 @@ A lightweight RESTful http server for IoT sensors development project.
 ## Server Startup Arguments
 |Short Name|Full Name|Verbose|Required|Summary|
 |:---:|:---:|:---:|:---:|:---:|
-|-l|--logpath|Sets the log file path.|☑|  |
-|-v|--password|Sets the password.|☑|Only supported characters and numerics.|
-|-p|--port|Sets the server binding port.|☑|This value can only be 0 to 65535.
-||--help|Display the help screen.|☒|
-||--version|Display version infomation|☒|
+|-l|--logpath|Sets the log file path.|✅|  |
+|-v|--password|Sets the password.|✅|Only supported characters and numerics.|
+|-p|--port|Sets the server binding port.|✅|This value can only be 0 to 65535.
+||--help|Display the help screen.|❎|
+||--version|Display version infomation|❎|
 
 
 ## RESTful Routing
