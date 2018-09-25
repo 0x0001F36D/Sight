@@ -21,7 +21,7 @@ namespace Sight.Console
         #region Methods
 
         public override string ToString() => $"[{Time.ToString("yyyy/MM/dd hh:mm:ss.ffff")}] Temperature:{Temperature}, Humidity:{Humidity}";
-        //--port 1234 --logpath log.txt --password sight
+        
         #endregion Methods
     }
 }
