@@ -3,6 +3,10 @@
 ## Introduction
 A lightweight RESTful http server for IoT sensors development project.
 
+## Todo
+- [x] Server side development
+- [ ] Sensor side development
+
 ## Server Startup Arguments
 |Short Name|Full Name|Verbose|Required|Summary|
 |:---:|:---:|:---:|:---:|:---:|
@@ -37,4 +41,4 @@ A lightweight RESTful http server for IoT sensors development project.
   2. Cmder
 
 ## Other
-Depend on Windows .NET framework 4.7.1
+Dependency on Windows .NET framework 4.7.1
