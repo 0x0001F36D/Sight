@@ -115,10 +115,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\config.h" />
+    <ClInclude Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\config.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\main\main.ino" />
+    <None Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\main\main.ino">
+      <FileType>CppCode</FileType>
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,11 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\config.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
+    <None Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\main\main.ino" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\main\main.ino" />
+    <ClInclude Include="..\..\..\..\Arduino Sketchs\sketch_oct06a\config.h" />
   </ItemGroup>
 </Project>
