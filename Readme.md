@@ -4,8 +4,9 @@
 A lightweight RESTful http server for IoT sensors development project.
 
 ## Todo
-- [x] Server side development
-- [ ] Sensor side development
+- [x] RESTful Server
+- [x] Sensor
+- [ ] Endpoint
 
 ## Server Startup Arguments
 |Short Name|Full Name|Verbose|Required|Summary|
