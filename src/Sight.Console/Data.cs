@@ -6,7 +6,7 @@ namespace Sight.Console
 {
     using System;
 
-    public class Data
+    public class Data : IEquatable<Data>
     {
         #region Properties
 
@@ -21,7 +21,16 @@ namespace Sight.Console
         #region Methods
 
         public override string ToString() => $"[{Time.ToString("yyyy/MM/dd hh:mm:ss.ffff")}] Temperature:{Temperature}, Humidity:{Humidity}";
-        
+        public bool Equals(Data other)
+        {
+            if (other is Data d)
+
+                return this.Humidity == d.Humidity && this.Temperature == d.Temperature;
+            return false;
+        }
+
+
+
         #endregion Methods
     }
 }

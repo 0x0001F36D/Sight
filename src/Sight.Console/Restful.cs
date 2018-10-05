@@ -13,6 +13,9 @@ namespace Sight.Console
 
     public class Restful : NancyModule
     {
+
+        static Data s_cache = default;
+
         #region Constructors
 
         public Restful()
@@ -46,6 +49,8 @@ namespace Sight.Console
                     var page = sw.ReadToEnd();
                     var lines = page.Split(new[] { "\r", "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
+                    if (lines.Length == 0)
+                        return Response.AsText("No content");
                     if (lines.Length < arg.from)
                         return Response.AsText("Error").WithStatusCode(HttpStatusCode.BadRequest);
 
@@ -54,7 +59,7 @@ namespace Sight.Console
                         sb.AppendFormat("{0}<br>", lines[i]);
                     }
 
-                    var html = this.BuildHtml("Log", bodySegment: sb.ToString());
+                    var html = this.BuildHtml("Log", bodySegment: sb.ToString(), autoRefreshTimeSeconds:9600);
 
                     return Response.AsText(html).WithContentType("text/html"); ;
                 }
@@ -68,6 +73,7 @@ namespace Sight.Console
                 using (var sw = new StreamReader(MainClass.Opt.LogPath))
                 {
                     var page = sw.ReadToEnd();
+
                     var lines = page.Split(new[] { "\r", "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                     var range = Enumerable.Range(arg.from, arg.count);
@@ -80,27 +86,32 @@ namespace Sight.Console
                         sb.AppendFormat("{0}<br>", lines[index]);
                     }
 
-                    var html = this.BuildHtml("Log", bodySegment: sb.ToString());
+                    var html = this.BuildHtml("Log", bodySegment: sb.ToString(), autoRefreshTimeSeconds: 9600);
 
                     return Response.AsText(html).WithContentType("text/html");
                 }
             };
 
-            Put["/data/p={p}&t={t}&h={h}"] = (arg) =>
+            Get["/data/p={p}&t={t}&h={h}"] = (arg) =>
             {
                 var password = (string)arg.p;
                 if (password.WithHash() != MainClass.Opt.Password)
                 {
                     return Response.AsText("Error").WithStatusCode(HttpStatusCode.Forbidden);
                 }
-
                 var d = new Data
                 {
                     Time = DateTime.Now,
                     Humidity = arg.h,
                     Temperature = arg.t
                 };
-                File.AppendAllLines(MainClass.Opt.LogPath, new string[1] { d.ToString() });
+                if (s_cache is null || !s_cache.Equals(d))
+                { 
+                    s_cache = d; 
+                    File.AppendAllLines(MainClass.Opt.LogPath, new string[1] { d.ToString() });
+                    Console.Title = ($"Temperature: {d.Temperature}, Humidity: {d.Humidity}");
+
+                }
                 return Response.AsJson(d);
             };
         }

@@ -17,6 +17,7 @@ namespace Sight.Console
         [Option('l', "logpath", HelpText = "Sets the log file path.", Required = true)]
         public string LogPath { get; set; }
 
+        
         [Option('v', "password", HelpText = "Sets the password.", Required = true)]
         public string Password
         {
