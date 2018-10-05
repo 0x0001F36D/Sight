@@ -27,7 +27,7 @@ A lightweight RESTful http server for IoT sensors development project.
 |/q|GET| N/A |Gets all of the logs. This uri will be redirect to '/q/from=0'.|
 |/q/from=\{index} |GET| index |Gets all of the logs from \{index}.
 |/q/from=\{index}&count=\{amount} |GET| index, amount |Gets \{amount} logs from \{index}.
-|/data/p=\{password}&t=\{temperature}&h=\{humidity}|PUT|temperature , humidity|Updates temperature and humidity when verification passed.
+|/data/p=\{password}&t=\{temperature}&h=\{humidity}|GET, PUT|temperature , humidity|Updates temperature and humidity when verification passed.
 
 ## Packages & Tools
 

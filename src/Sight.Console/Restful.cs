@@ -92,7 +92,7 @@ namespace Sight.Console
                 }
             };
 
-            Get["/data/p={p}&t={t}&h={h}"] = (arg) =>
+            Put["/data/p={p}&t={t}&h={h}"] = Get["/data/p={p}&t={t}&h={h}"] = (arg) =>
             {
                 var password = (string)arg.p;
                 if (password.WithHash() != MainClass.Opt.Password)
