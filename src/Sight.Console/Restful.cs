@@ -8,7 +8,7 @@ namespace Sight.Console
     using System.IO;
     using System.Linq;
     using System.Text;
-
+    using System.Text.RegularExpressions;
     using Nancy;
 
     public class Restful : NancyModule
@@ -91,6 +91,57 @@ namespace Sight.Console
                     return Response.AsText(html).WithContentType("text/html");
                 }
             };
+
+            Get["/q/last"] = (arg) =>
+            { 
+                var sb = new StringBuilder();
+                using (var sw = new StreamReader(MainClass.Opt.LogPath))
+                {
+                    var page = sw.ReadToEnd();
+
+                    var line = page.Split(new[] { "\r", "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+
+
+                    if (line is null)
+                        return Response.AsText("Error").WithStatusCode(HttpStatusCode.BadRequest);
+
+
+                    var html = this.BuildHtml("Log", bodySegment: line, autoRefreshTimeSeconds: 9600);
+
+                    return Response.AsText(html).WithContentType("text/html");
+                }
+            };
+
+            Get["/data/state"] = (arg) =>
+            {
+                var sb = new StringBuilder();
+                using (var sw = new StreamReader(MainClass.Opt.LogPath))
+                {
+                    var page = sw.ReadToEnd();
+
+                    var line = page.Split(new[] { "\r", "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+
+
+                    if (line is null)
+                        return Response.AsText("Error").WithStatusCode(HttpStatusCode.BadRequest);
+                    var m = Regex.Match(line, @"Temperature:(?<t>\d+), Humidity:(?<h>\d+)");
+                    if (m.Success)
+                    {
+                        var enable = int.Parse(m.Groups["t"].Value) >= 30 || int.Parse(m.Groups["h"].Value) >= 75;
+
+                        var plain = enable ? "on" : "off";
+
+                        return Response.AsText(plain).WithContentType("text/plain");
+                    }
+                    else
+                    {
+                        return Response.AsText("Error").WithStatusCode(HttpStatusCode.BadRequest);
+                    }
+                }
+
+            };
+
+
 
             Put["/data/p={p}&t={t}&h={h}"] = Get["/data/p={p}&t={t}&h={h}"] = (arg) =>
             {
